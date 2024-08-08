@@ -1,8 +1,4 @@
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
-
+### Target Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -42,3 +38,6 @@ build/
 ### Mac OS ###
 .DS_Store
 .pdf
+
+### WebDriver
+.exe
