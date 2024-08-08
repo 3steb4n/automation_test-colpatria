@@ -1,5 +1,5 @@
 package pages;
 
-public class CategoriesIndex {
+public class CategoriesIndexElements {
     
 }
