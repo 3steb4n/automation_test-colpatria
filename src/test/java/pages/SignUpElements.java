@@ -3,6 +3,7 @@ package pages;
 import java.util.ArrayList;
 import java.time.Duration;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,13 +21,13 @@ public class SignUpElements {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(LIMIT_WAIT_DRIVER));
     }
 
-    public void accessToInputFields(ArrayList<String> userDate) {
+    public void accessToInputFields(String username, String password) {
         try {
             WebElement userNameField = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-username")));
             WebElement userPwField = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-password")));
     
-            userNameField.sendKeys(userDate.get(0).toString());
-            userPwField.sendKeys(userDate.get(1).toString());
+            userNameField.sendKeys(username);
+            userPwField.sendKeys(password);
         } catch (TimeoutException e) {
             System.out.println("Error de TimeOut al momento de acceder a los campos de texto del modal 'Sign up'" + e);
         }
@@ -50,5 +51,14 @@ public class SignUpElements {
         } catch (TimeoutException e) {
             System.out.println("Error de TimeOut al momento de acceder al boton 'Sign up' de la pagina principal" + e);
         }
+    }
+
+    public String getAlertText() {
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = this.driver.switchTo().alert();
+        String ad = alert.getText();
+        alert.accept();
+
+        return ad;
     }
 }

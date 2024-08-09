@@ -13,7 +13,9 @@ public class DriverManager {
     public static WebDriver getBrowserDriver() {
         if (driver == null) {
             // Accede a las variables de entorno del archivo de configuracion serenity.conf (src/test/resources)
-            String driverSelected = EnvironmentSpecificConfiguration.from(env).getProperty("driver").toLowerCase();
+            //String driverSelected = EnvironmentSpecificConfiguration.from(env).getProperty("driver").toLowerCase();
+            String driverSelected = "chrome".toLowerCase();
+            System.out.println(driverSelected);
 
             // Elegir que navegador ejecutar con la compilacion del proyecto (chrome o firefox)
             switch (driverSelected) {

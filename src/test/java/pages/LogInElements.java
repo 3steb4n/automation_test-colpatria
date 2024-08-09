@@ -20,13 +20,13 @@ public class LogInElements {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(LIMIT_WAIT_DRIVER));
     }
 
-    public void accessToInputFields(ArrayList<String> userDate) {
+    public void accessToInputFields(String username, String password) {
         try {
             WebElement userNameField = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginusername")));
             WebElement userPwField = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginpassword")));
     
-            userNameField.sendKeys(userDate.get(0).toString());
-            userPwField.sendKeys(userDate.get(1).toString());
+            userNameField.sendKeys(username);
+            userPwField.sendKeys(password);
         } catch (TimeoutException e) {
             System.out.println("Error de TimeOut al momento de acceder a los campos de texto del modal 'Login'" + e);
         }
