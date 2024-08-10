@@ -51,4 +51,16 @@ public class LogInElements {
             System.out.println("Error de TimeOut al momento de acceder al boton 'Log in' de la pagina principal" + e);
         }
     }
+
+    public String getUsernameIndex() {
+        try {
+            WebElement userName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
+
+            return userName.getText();
+        } catch (TimeoutException e) {
+            System.out.println("Error al obtener el nombre de usuario: " + e);
+
+            return null;
+        }
+    }
 }

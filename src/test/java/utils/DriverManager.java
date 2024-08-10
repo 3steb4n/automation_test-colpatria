@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class DriverManager {
     private static WebDriver driver;
     private static EnvironmentVariables env;
@@ -14,18 +16,18 @@ public class DriverManager {
         if (driver == null) {
             // Accede a las variables de entorno del archivo de configuracion serenity.conf (src/test/resources)
             //String driverSelected = EnvironmentSpecificConfiguration.from(env).getProperty("driver").toLowerCase();
-            String driverSelected = "chrome".toLowerCase();
+            String driverSelected = "firefox".toLowerCase();
             System.out.println(driverSelected);
 
             // Elegir que navegador ejecutar con la compilacion del proyecto (chrome o firefox)
             switch (driverSelected) {
                 case "chrome":
-                    System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+                    WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
                     driver.manage().window().maximize();
                     break;
                 case "firefox":
-                    System.setProperty("webdriver.firefox.driver", "src/test/resources/geckodriver.exe");
+                    WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     driver.manage().window().maximize();
                     break;

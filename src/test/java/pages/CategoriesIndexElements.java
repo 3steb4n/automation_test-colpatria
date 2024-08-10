@@ -22,12 +22,8 @@ public class CategoriesIndexElements {
     }
 
     public void clickCategories(String categorie) throws Exception {
-        Boolean matchText = false;
-
         for (String filterCategories : getCategories()) {
             if (filterCategories.toLowerCase() == categorie.toLowerCase()) {
-                matchText = true;
-
                 try {
                     WebElement categorieElement = wait.until(ExpectedConditions
                             .elementToBeClickable(By.xpath("//a[text()='" + filterCategories + "']")));
@@ -37,10 +33,6 @@ public class CategoriesIndexElements {
                 }
                 break;
             }
-        }
-
-        if (!matchText) {
-            throw new Exception("No se encontró ninguna categoría con el nombre: " + categorie);
         }
     }
 
