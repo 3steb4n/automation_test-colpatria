@@ -1,6 +1,5 @@
 package pages;
 
-import java.util.ArrayList;
 import java.time.Duration;
 
 import org.openqa.selenium.Alert;
@@ -35,9 +34,10 @@ public class SignUpElements {
 
     public void signUpButtonAccess() {
         try {
-            WebElement buttonLogInModal = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@onclick='register()']")));
+            WebElement buttonSignUpModal = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@onclick='register()']")));
 
-            buttonLogInModal.click();
+            buttonSignUpModal.click();
+
         } catch (TimeoutException e) {
             System.out.println("Error de TimeOut al momento de acceder al boton 'Sign up' del modal: " + e);
         }
@@ -45,19 +45,22 @@ public class SignUpElements {
 
     public void signUpButtonIndex() {
         try {
-            WebElement buttonLogInIndex = wait.until(ExpectedConditions.elementToBeClickable(By.id("signin2")));
+            WebElement buttonSignUpIndex = wait.until(ExpectedConditions.elementToBeClickable(By.id("signin2")));
 
-            buttonLogInIndex.click();
+            buttonSignUpIndex.click();
         } catch (TimeoutException e) {
             System.out.println("Error de TimeOut al momento de acceder al boton 'Sign up' de la pagina principal" + e);
         }
     }
 
-    public String getAlertText() {
+    public String getAlertText() throws InterruptedException {
         wait.until(ExpectedConditions.alertIsPresent());
+
         Alert alert = this.driver.switchTo().alert();
         String ad = alert.getText();
+
         alert.accept();
+        Thread.sleep(1000);
 
         return ad;
     }

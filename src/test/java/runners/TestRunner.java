@@ -11,5 +11,8 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-reports.html"}
 )
 
-public class TestRunner {
+public class TestRunner{
+    static {
+        System.setProperty("cucumber.objectFactory", "io.cucumber.picocontainer.PicoFactory");
+    }
 }

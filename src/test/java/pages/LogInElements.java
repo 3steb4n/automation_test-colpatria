@@ -1,6 +1,5 @@
 package pages;
 
-import java.util.ArrayList;
 import java.time.Duration;
 
 import org.openqa.selenium.By;

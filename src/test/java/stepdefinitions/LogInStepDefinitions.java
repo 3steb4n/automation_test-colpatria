@@ -8,33 +8,34 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LogInElements;
-import utils.GetCsvData;
+import utils.AccessContext;
 import utils.DriverManager;
 
+import java.io.IOException;
+
 public class LogInStepDefinitions {
-    private WebDriver driver;
     private LogInElements logInElements;
-    private GetCsvData getCsvData;
     private String userName;
-    private String password;
+    AccessContext accessContext;
 
     @Before
     public void setup() {
-        this.driver = DriverManager.getBrowserDriver();
-        this.logInElements = new LogInElements(this.driver);
+        WebDriver driver = DriverManager.getBrowserDriver();
+        this.logInElements = new LogInElements(driver);
+        this.accessContext = AccessContext.getInstance();
     }
 
-    @Given("I am on the DemoBlaze website and navigate to the Log In modal")
-    public void i_am_on_the_demo_blaze_website_and_navigate_to_the_log_in_modal() {
+    @Given("the user is on the DemoBlaze website and navigates to the Log In modal")
+    public void the_user_is_on_the_demo_blaze_website_and_navigates_to_the_log_in_modal() {
         this.logInElements.logInButtonIndex();
     }
 
-    @When("I fill the input fields in the Log In modal with the data from {string} and press the action button")
-    public void i_fill_the_input_fields_in_the_log_in_modal_with_the_data_from_and_press_the_action_button(String csvFilePath) {
-        // Write code here that turns the phrase above into concrete actions
-        this.getCsvData = new GetCsvData(csvFilePath);
-        userName = this.getCsvData.getInputDataFromCsv().get(0).toString();
-        password = this.getCsvData.getInputDataFromCsv().get(1).toString();
+    @When("the user fills in the input fields in the Log In modal with the data from {string} and presses the action button")
+    public void the_user_fills_in_the_input_fields_in_the_log_in_modal_with_the_data_from_and_presses_the_action_button(String csvFilePath) throws IOException {
+        String password = accessContext.getPassword();
+
+        userName = accessContext.getUserName();
+
         logInElements.accessToInputFields(userName, password);
         logInElements.logInButtonAccess();
     }

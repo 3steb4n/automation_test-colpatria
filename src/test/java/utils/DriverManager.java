@@ -1,6 +1,7 @@
 package utils;
 
 import net.serenitybdd.model.environment.EnvironmentSpecificConfiguration;
+import net.thucydides.model.environment.SystemEnvironmentVariables;
 import net.thucydides.model.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,12 +15,16 @@ public class DriverManager {
 
     public static WebDriver getBrowserDriver() {
         if (driver == null) {
+            if (env == null) {
+                env = SystemEnvironmentVariables.createEnvironmentVariables();
+            }
             // Accede a las variables de entorno del archivo de configuracion serenity.conf (src/test/resources)
-            //String driverSelected = EnvironmentSpecificConfiguration.from(env).getProperty("driver").toLowerCase();
-            String driverSelected = "firefox".toLowerCase();
+            String driverSelected = EnvironmentSpecificConfiguration.from(env)
+                    .getProperty("browser");
+
             System.out.println(driverSelected);
 
-            // Elegir que navegador ejecutar con la compilacion del proyecto (chrome o firefox)
+            // Elegir que navegador a ejecutar con la compilacion del proyecto (chrome o firefox)
             switch (driverSelected) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
